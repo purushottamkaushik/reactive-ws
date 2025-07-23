@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public Mono<UserResponse> getUserId(Long id) {
+        return userRepository.findById(id).mapNotNull(this::convertToResponse);
+    }
+
     private UserEntity convertToEntity(CreateUserRequest createUserRequest) {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(createUserRequest, userEntity);

@@ -65,7 +65,7 @@ public class UserEntity {
         this.password = password;
     }
 
-    public UserEntity(Long id, String firstName, String lastName, String email, String password) {
+    public UserEntity( Long id , String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

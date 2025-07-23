@@ -8,4 +8,6 @@ public interface UserService {
 
     Mono<UserResponse> createUser(Mono<CreateUserRequest> createUserRequestMono);
 
+    Mono<UserResponse> getUserId(Long id);
+
 }

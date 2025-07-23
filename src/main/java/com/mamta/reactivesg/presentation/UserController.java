@@ -11,7 +11,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
-import java.util.UUID;
 
 
 @RequestMapping("/users")
@@ -47,12 +46,17 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public Mono<UserResponse> getUser(@PathVariable("userId") UUID userId) {
-       return Mono.just(new UserResponse(
-               userId,
-               "Purushottam",
-               "Kaushik",
-               "pkaushik@gmail.com"));
+    public Mono<ResponseEntity<UserResponse>> getUser(@PathVariable("userId") Long userId) {
+//       return Mono.just(new UserResponse(
+//               userId,
+//               "Purushottam",
+//               "Kaushik",
+//               "pkaushik@gmail.com"));
+
+        return userService.getUserId(userId)
+                .log()
+                .map(user -> ResponseEntity.status(HttpStatus.OK).body(user))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
 
@@ -61,10 +65,11 @@ public class UserController {
             @RequestParam(value = "offset" ,defaultValue = "0") int offset,
             @RequestParam(value = "limit" ,defaultValue = "50") int limit
     ) {
-        return Flux.just(
-                new UserResponse(UUID.randomUUID(),"pu","ka","p@gmail.com"),
-                new UserResponse(UUID.randomUUID(),"pu","ka","p@gmail.com"),
-                new UserResponse(UUID.randomUUID(),"pu","ka","p@gmail.com")
-        );
+//        return Flux.just(
+//                new UserResponse(UUID.randomUUID(),"pu","ka","p@gmail.com"),
+//                new UserResponse(UUID.randomUUID(),"pu","ka","p@gmail.com"),
+//                new UserResponse(UUID.randomUUID(),"pu","ka","p@gmail.com")
+//        );
+        return Flux.empty();
     }
 }

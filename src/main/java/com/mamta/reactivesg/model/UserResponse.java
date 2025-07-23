@@ -1,10 +1,8 @@
 package com.mamta.reactivesg.model;
 
-import java.util.UUID;
-
 public class UserResponse {
 
-    private UUID id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -12,11 +10,11 @@ public class UserResponse {
     public UserResponse() {
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,7 +42,7 @@ public class UserResponse {
         this.email = email;
     }
 
-    public UserResponse(UUID id, String firstName, String lastName, String email) {
+    public UserResponse(Long id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
