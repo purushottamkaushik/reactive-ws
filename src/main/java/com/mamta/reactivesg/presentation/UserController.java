@@ -54,7 +54,6 @@ public class UserController {
 //               "pkaushik@gmail.com"));
 
         return userService.getUserId(userId)
-                .log()
                 .map(user -> ResponseEntity.status(HttpStatus.OK).body(user))
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
@@ -62,7 +61,7 @@ public class UserController {
 
     @GetMapping()
     public Flux<UserResponse> getUsers(
-            @RequestParam(value = "offset" ,defaultValue = "0") int offset,
+            @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit" ,defaultValue = "50") int limit
     ) {
 //        return Flux.just(
@@ -70,6 +69,8 @@ public class UserController {
 //                new UserResponse(UUID.randomUUID(),"pu","ka","p@gmail.com"),
 //                new UserResponse(UUID.randomUUID(),"pu","ka","p@gmail.com")
 //        );
-        return Flux.empty();
+
+        return userService.getPaginatedData(page, limit)
+                .switchIfEmpty(Flux.empty());
     }
 }
