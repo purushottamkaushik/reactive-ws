@@ -2,6 +2,7 @@ package com.mamta.reactivesg.advice;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -33,5 +34,10 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.joining(",", " ", " "));
 
         return Mono.just(ErrorResponse.builder(webe, HttpStatus.BAD_REQUEST,errorMessages).build());
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public Mono<ErrorResponse> handleBadCredentialsException(BadCredentialsException bce){
+        return Mono.just(ErrorResponse.builder(bce, HttpStatus.UNAUTHORIZED,bce.getMessage()).build());
     }
 }

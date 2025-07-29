@@ -25,10 +25,11 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
 
     @Override
-    public Mono<Map<String, String>> authenticate(String username, String password) {
+    public Mono<Map<String,String>> authenticate(String username, String password) {
         return reactiveAuthenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password))
                 .then(getUserEntity(username))
                 .map(userEntity -> createUserResponse(userEntity));
+
     }
 
 
